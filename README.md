@@ -5,6 +5,7 @@
 For this challenge we will be building a simple interface for a school that will keep track of student and staff records. 
 
 ##Our files 
+
 Right now we only have two files. We will have many more by the time we are done. For now, we just have a file to hold our school class and a new file we may not have seen before called a 'runner' file. For our purposes the runner file will be the file we 'run' when we want to use our school interface. 
 
 ```Ruby 
