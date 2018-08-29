@@ -37,7 +37,7 @@ Think about what attributes a school should have. What should the school object 
 ```
 ## Release 1: Accessing Instance Variables 
 
-##### Getter Methods
+### Getter Methods
 After you've set up the attributes in initialize, run the runner file. We will get a brand new error! Progress. Ruby can see that we have a school object, but it doesn't seem to know how to access the name attribute.  
 
 Turns out instance variables can't be read directly outside of the class. We need to write a method that returns the variable. Lets do that now. 
@@ -58,7 +58,7 @@ This type of method is so common that it has a name. It is called a 'getter meth
 ```
 To recap, we are calling a method on our school object and that method is what is returning the instance variable that contains the school name. 
 
-##### Setter Methods
+### Setter Methods
 Similar to getter methods are setter methods. These methods allow us to update or change instance variables. Setter methods are always named the name of the variable you want to change followed by an equal sign. 
 
 ```Ruby 
@@ -83,7 +83,7 @@ In your runner, try to change the name of the school and print the result.
     p school.name
 ```
 
-##### Add Getter and Setter for location
+### Add Getter and Setter for location
 Not all variables will require getters and setters. Some might need one or the other, some might not need any at all. We will want to access the school location for our program and it is conceivable that the school might move to a new building so lets add a getter and setter for location to our School class. 
 ```Ruby
     # school.rb 
