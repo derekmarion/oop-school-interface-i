@@ -31,6 +31,7 @@ Think about what attributes a school should have. What should the school object 
         end 
     end 
 ```
+##### Getter Methods
 After you've set up the attributes in initialize, run the runner file. It won't work. Read the error. It looks like ruby can't read the our name attribute. But we can see it set right there! 
 
 Turns out instance variables can't be read directly outside of the class. We need to write a method that returns the varaible. Lets do that now. 
@@ -40,54 +41,24 @@ Turns out instance variables can't be read directly outside of the class. We nee
         @name
     end
 ```
-#### Create the Students
+Now we have a method that returns the instance variable.  Now run our runner file and you should see the school's name print to the terminal. 
 
-Your students will be stored in the school database.  (Don't worry about creating a database - just have a way for the school to store the student's records).
-
-Can you think of anything they might inherit from the school, or is inheritance not needed here? These design decisions are up to you.
-
-#### Create the Staff
-
-There are multiple types of staff, and you're free to create your own.
-
-A few obvious examples are principal, teachers, teaching assistants, receptionists, and janitors.  What attributes and methods might they all share?  What will be different for each?
-
-### Release 1 : Build Authentication System
-
-Now imagine you're delivering this software and it's going to run as a Ruby file in Terminal.
-
-You're going to create a single administrator who can add staff (teachers, janitors, etc) and students, and only this administrator is allowed to create these objects in the system.
-
-You also want to allow the created staff and students to login and access their grades. Remember, a student shouldn't be able to access information about other students or teachers.
-
-An example of how this interface might look (this is just an idea - you are welcome to implement this feature however you think is best):
-
-```text
-$ ruby school.rb
-> Welcome to Bayside High
-> -------------------------------
-> Please enter your username:
-> richard_belding
-> Please enter your password:
-> ********
-> -------------------------------
-> Welcome, richard_belding.  Your access level is: PRINCIPAL
-> -------------------------------
-> What would you like to do?
-> Options:
-> - list_students
-> - view_grades <student_id>
-> - add_grade <student_id>
-> - remove_grade <student_id> <grade_id>
+```Ruby
+    p school.name  # => 'Ridgemont High'
 ```
+So now we are calling a method on our school object and that method is what is returning the instance variable that contians the school name. This type of method is so common that it has a name. It is called a 'getter method', becasue it 'gets' the varaible for us. 
 
+##### Setter Methods
+Similar to getter methods are setter methods. These methods allow us to update or change instance variables. Setter methods are always named the name of the variable you want to change followed by an equal sign. 
 
-## Optimize Your Learning
+```Ruby 
+    def name=(newValue)
+        @name = newValue
+    end 
+```
+#### Create the Students and Staff
 
-As you are coding, ask yourself...
+Now take what you've learned and create a class for students and a class for staff. Think about what attributes each will have. At minimuim include name, and age for both. What would we want to know about staff? What would we need to know about each student? Be sure to include getter and setter methods for each. Require the files in you runner and write code to test that you can create objects and access their instance variables. 
 
- * How will I use this class?
- * How will this class interact with the other classes?
- * Does this attribute need to be private or public?
- * Are my methods and variables well named?
- * Am I using the best object type for my variables?
+NOTE: You may notice that are code is kind of jumbled. We will be doing some refactoring in our next release. 
+
