@@ -18,7 +18,7 @@ Right now we only have two files. We will have many more by the time we are done
 ```
 Notice the `require_relative` at the top. In order to keep our code organized, we separate our classes and modules into their own files. We can bring code from one file into another file by using `require_relative` followed by a string with the name of the file we want to require. Run `ruby runner.rb` in the command line. You'll get an error because we haven't finished writing our school class yet. Let's do that now. 
 
-#### Release 0: Create the School Class
+## Release 0: Create the School Class
 
 Write the code that will create a new school object.
 Think about what attributes a school should have. What should the school object know? For now, make sure your school object at least has a name, location, and a way to store students and staff. What data structure might be helpful here? 
@@ -35,7 +35,7 @@ Think about what attributes a school should have. What should the school object 
         end 
     end 
 ```
-#### Release 1: Accessing Instance Variables 
+## Release 1: Accessing Instance Variables 
 
 ##### Getter Methods
 After you've set up the attributes in initialize, run the runner file. We will get a brand new error! Progress. Ruby can see that we have a school object, but it doesn't seem to know how to access the name attribute.  
@@ -96,7 +96,7 @@ Not all variables will require getters and setters. Some might need one or the o
         # your code here
     end
 ```
-#### Release 2: Create the Student and Staff Classes
+## Release 2: Create the Student and Staff Classes
 
 Now take what you've learned and create a class for students and a class for staff. Think about what attributes each will have. At minimum include name and age for both. What would we want to know about staff? What would we need to know about each student? Be sure to include getter and setter methods for each. Require the files in you runner and write code to test that you can create objects and access their instance variables. 
 
