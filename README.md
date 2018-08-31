@@ -120,5 +120,76 @@ end
 ```
 Now if we try to create an instance of the `Person` class without providing a name we should get an error telling us exactly which attribute is missing. Refactor the rest of our classes to take a hash and use fetch to retrieve out values. 
 
+Great! One last refactor. Now we have a log of files hanging around. Let's create a folder for our classes and move them all in there. Your file structure should look something like this. 
+```
+.
+├── data                    
+│   ├── staff.csv         
+│   └── student.csv                
+├── classes                  
+│   ├── student.rb         
+│   ├── staff.rb         
+│   ├── person.rb         
+│   └── school.rb 
+│               
+└── runner.rb 
+```
+
 ## Release 2: Loading Data
-The last thing we'll do in this challenge is load in our data from the csv file.  
+The next thing we'll need to do in this challenge is load in our data from the `csv` file using Ruby's `CSV` module. If you haven't done so already, [Read this great article on CSV and Ruby](https://www.sitepoint.com/guide-ruby-csv-library-part/). 
+We're going to make a design choice here and say that our `Student` class will be in charge of talking to our student 'database'. To do so, we'll define a [class method](http://www.rubyfleebie.com/2007/04/09/understanding-class-methods-in-ruby). 
+```Ruby
+# student.rb
+def self.all   
+    CSV.foreach('./data/students.csv', headers: true, header_converters: :symbol ).map do |student_info|
+        Student.new(student_info.to_h)
+    end 
+end 
+
+```
+
+There's a going on here so let's walk through it. A `self` in this case is refering to the entire `Student` class. Class methods are called on the class itself, as opposed to the instance methods we are used to, which are called on instances of a class. 
+
+```Ruby
+#an instance of Student
+moe = Student.new('Moe')
+#calling and instance method
+moe.name # => 'Moe'
+
+#calling a class method
+Student.all # => [#<Student:0x00007fe6708cecf0 @name="Lisa", @age="25", @password="xx ", @role="Student", @school_id="13345">, ... ]
+```
+
+Inside our class method we are iterating over each line in the `csv` file. We set some parameters to ensure that each row includes headers which get set as our keys when we call `.to_h` to convert the row into a hash as we pass it to the `Student.new` method. 
+Wow, that was a mouthful. Feel free to expierment with reading from the `CSV`. Make sure you understand how the data is coming. Why do we need to chain `.map` on the to our `foreach` method? Don't move on until you have an understanding what's going on here. This concept of reading rows of data and turning them into `Ruby` objects is extremely common and will carry through into our work with `Rails`. 
+
+Once you have a feel for what is going on here, set up the `Staff` class with it's own `.all` method. 
+
+## Release 3: Loading Staff and Students into School
+Again we are making a design decision here that might need to change as we expand functionality. For now, though, we want to be able to instantiate an instance of school and have it already loaded up with staff and student objects. 
+
+Luckily we did most of the work in the last release. 
+
+```Ruby
+# school.rb
+
+def initialize(name, address = nil)
+    @name = name 
+    @address = address   
+    @students = Students.all 
+    @staff = Staff.all  
+end 
+```
+That's it! Now we should be able to run our runner file and have a school full of staff and students. This will be the foundation we build the rest of our program around. 
+
+```Ruby 
+# runner.rb 
+require_relative './classes/school.rb' 
+
+school = School.new('Ridgemont High', '1212 Main st.')
+
+p school.students # => a list of student objects
+p school.staff # => a list of staff objects 
+```
+
+
