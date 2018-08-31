@@ -1,8 +1,20 @@
 # School Interface One
 
-## Overview
+## What We're Building
+```
+Ridgemont High Student Interface 
+--------------------------------
+Welcome, Lisa. Your access lever is Principal
+    What would you like to do?
+    Options:
+    1 List All Students
+    2 View Individul Student <student_id>
+    3 Add a Student
+    4 Remove a Student <student_id>
+    5 Quit
+```
 
-For this challenge we will be building a simple interface for a school that will keep track of student and staff records. There are many ways to create the functionality we are looking for and you should feel free to experiment. 
+For this challenge we will be building a simple interface for a school that will keep track of student records. There are many ways to create the functionality we are looking for and you should feel free to experiment beyond the scope of this tutorial. We'll be using the menu above as a guide. By the end we'll be able to see a list of students, add and remove records, save records to csv file. We'll also add a simple authentication system. 
 
 ## Our files 
 
@@ -11,94 +23,102 @@ Right now we only have two files. We will have many more by the time we are done
 ```Ruby 
     #runner.rb
     require_relative 'school'
-
     school = School.new('Ridgemont High') 
 
     p school.name
 ```
 Notice the `require_relative` at the top. In order to keep our code organized, we separate our classes and modules into their own files. We can bring code from one file into another file by using `require_relative` followed by a string with the name of the file we want to require. Run `ruby runner.rb` in the command line. You'll get an error because we haven't finished writing our school class yet. Let's do that now. 
 
-## Release 0: Create the School Class
+### Data 
+We also have a data folder that is holding our student and staff records in csv files. We'll be using these as our database. Take a look at the data given. We'll use what's there as a template when we create our classes later. 
 
-Write the code that will create a new school object.
-Think about what attributes a school should have. What should the school object know? For now, make sure your school object at least has a name, location, and a way to store students and staff. What data structure might be helpful here? 
+## Release 0: Create Classes
+
+We can  already tell from what we have in our runner file that we are going to need a school class. This class will be hold most of the logic that powers our program under the hood. In addition, we'll want to create classes for staff and students as well. 
 
 ```Ruby
-# school.rb
+# school.rb 
 
-    class School
-        def initialize(name, location)
-           @name = name
-           @location = location 
-           @staff = # what data structure goes here?
-           @students = # same
-        end 
+class School 
+
+    def initialize(name, address)
+        @name = name
+        @address = address
+        @students = []
+        @staff = []
     end 
+end 
 ```
-## Release 1: Accessing Instance Variables 
+We'll start by initializing our school with a name and address. Feel free to add other attributes as well. Notice that the school will also be responsible for keeping track of students and staff. Since these will be large collections of objects, we'll use an array to hold them. For now we'll initialize with empty arrays. Later we'll see how to get our student records loaded right into the class when start out program. 
 
-### Getter Methods
-After you've set up the attributes in initialize, run the runner file. We will get a brand new error! Progress. Ruby can see that we have a school object, but it doesn't seem to know how to access the name attribute.  
+#### Students and Staff
+Now we can create our student and staff classes. Using the headers in the corresponding csv files we set our instance variables. 
 
-Turns out instance variables can't be read directly outside of the class. We need to write a method that returns the variable. Lets do that now. 
-
-```Ruby
-# school.rb
-
-    def name
-        @name
-    end
-```
-This type of method is so common that it has a name. It is called a 'getter method', because it 'gets' the variable for us. It often has the same name as the variable it is returning. Now run the runner file and you should see the school's name print to the terminal. 
-
-```Ruby
-    # runner.rb 
-
-    p school.name  # => 'Ridgemont High'
-```
-To recap, we are calling a method on our school object and that method is what is returning the instance variable that contains the school name. 
-
-### Setter Methods
-Similar to getter methods are setter methods. These methods allow us to update or change instance variables. Setter methods are always named the name of the variable you want to change followed by an equal sign. 
 
 ```Ruby 
-    # school.rb
-
-    def name=(new_value)
-        @name = new_value
+# student.rb 
+class Student 
+    def initialize(name, age, password, role, school_id)
+        @name = name 
+        @age = age         
+        @password = password
+        @role = role
+        @school_id = school_id
     end 
+end 
+
+#staff.rb
+class Staff 
+    def initialize(name, age, password, role, staff_id)
+        @name = name 
+        @age = age         
+        @password = password
+        @role = role
+        @staff_id = staff_id
+    end 
+end 
 ```
 
-In your runner, try to change the name of the school and print the result. 
+Ugh oh. That's a LOT of repeated code. There's got to be a way to refactor this. Looks like right now students and staff only differ when it comes to how there ids are stored and labeled. As Our program develops, we may discover other differences, so it's a good idea to keep these separate classes. 
+Create a `Person` class and move any shared attributes there. Then, set up your `Staff` and` School` classes so that they inherit from `Person`
 
-```Ruby 
-    # runner.rb
+## Release 1: Refactor with .fetch 
 
-    school = School.new('Ridgemont High') 
-
-    p school.name
-
-    school.name = 'Starbucks International College Prep High School of Science and Technology Sponsored by Old Spice' 
-
-    p school.name
-```
-
-### Add Getter and Setter for location
-Not all variables will require getters and setters. Some might need one or the other, some might not need any at all. We will want to access the school location for our program and it is conceivable that the school might move to a new building so lets add a getter and setter for location to our School class. 
+The code in our classes is much cleaner now. Let's do one more refactor before we moe on. Right now, when we initialize an instance of `Staff` or `Student` we have to pass in five arguments.
 ```Ruby
-    # school.rb 
-
-    def location
-        # your code here
-    end 
-
-    def location=(new_location)
-        # your code here
-    end
+Student.new('Diana', 17, 'password', 'Student', 12345)
 ```
-## Release 2: Create the Student and Staff Classes
+This is ok for now, but as we build out our program, we might want to start adding even more attributes. Also, the way our code is now, we need to be careful about the order we pass our args in. If we pass name in last in the example above, then the student_id would get set to `'Diana'`. Not good. 
+What would be better is if we could just pass a hash of attributes and have our class work out what goes where. 
+```Ruby 
+student_info = {name: 'Diana', password: 'password', student_id: 12345, age: 17, role: 'Student'}
+Student.new(student_info)
+```
+This will help us a lot when we start to build out our user interface. Also, notice that order of arguments doesn't matter. We can set up the hash any way we want. All we need to do is set up our class to accept a hash and then pull each value from the hash based on the key. 
+```Ruby 
+# person.rb 
+class Person
+    def initialize(args)
+        @name = args[:name] 
+        @age = args[:age]         
+        @password = args[:password]
+        @role = args[:role]
+    end 
+end 
+```
+This is good, but we may encounter a problem. Try create a new instance of a `Student` class using a hash, but don't provide a name attribute. What happens? Everything seems to work fine, but now we have a student with name set to `nil`. Sometimes that will be what we want, but this is not one of those times. For our purposes, we want `Ruby` to throw an error when attributes are missing. We can do that by using the  `.fetch` method to grab values from our hash. 
+```Ruby 
+# person.rb 
+class Person
+    def initialize(args)
+        @name = args.fetch(:name)
+        @age = args.fetch(:age)
+        @password = args.fetch(:password)
+        @role = args.fetch(:role)
+    end 
+end 
+```
+Now if we try to create an instance of the `Person` class without providing a name we should get an error telling us exactly which attribute is missing. Refactor the rest of our classes to take a hash and use fetch to retrieve out values. 
 
-Now take what you've learned and create a class for students and a class for staff. Think about what attributes each will have. At minimum include name and age for both. What would we want to know about staff? What would we need to know about each student? Be sure to include getter and setter methods for each. Require the files in you runner and write code to test that you can create objects and access their instance variables. 
-
-NOTE: You may notice that our code is kind of jumbled. We will be doing some refactoring in our next release. 
-
+## Release 2: Loading Data
+The last thing we'll do in this challenge is load in our data from the csv file.  
