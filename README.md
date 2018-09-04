@@ -110,7 +110,7 @@ class Person
     end 
 end 
 ```
-This is good, but we may encounter a problem. Try creating a new instance of the `Student` class using a hash, don't provide a name attribute. What happens? Everything seems to work fine, but if we call `.name` (assume we've set up the appropriate `attr` methods) we'll see that it is set to `nil`. Sometimes that will be what we want, but this is not one of those times. For our purposes, we want `Ruby` to throw an error when attributes are missing. We can do that by using the  `.fetch` method to grab values from our hash. 
+This is good, but we may encounter a problem. Try creating a new instance of the `Student` class using a hash, but don't provide a name attribute. What happens? Everything seems to work fine, but if we call `.name` (assuming we've set up the appropriate `attr` methods) we'll see that it is set to `nil`. Sometimes that will be what we want, but this is not one of those times. For our purposes, we want `Ruby` to throw an error when attributes are missing. We can do that by using the  `.fetch` method to grab values from our hash. 
 ```Ruby 
 # person.rb 
 class Person
@@ -122,7 +122,7 @@ class Person
     end 
 end 
 ```
-Now if we try to create an instance of the `Person` class without providing a name we should get an error telling us exactly which attribute is missing. Refactor the rest of our classes to take a hash and use fetch to retrieve out values. 
+Now if we try to create an instance of the `Person` class without providing a name we should get an error telling us exactly which attribute is missing. Refactor the rest of our classes to take a hash and use fetch to retrieve the values. 
 
 #### Move Classes Into Class Folder
 
@@ -147,14 +147,12 @@ We're going to make a design choice here and say that our `Student` class will b
 ```Ruby
 # student.rb
 def self.all   
-    CSV.foreach('./data/students.csv', headers: true, header_converters: :symbol ).map do |student_info|
-        Student.new(student_info.to_h)
-    end 
+   # read from the csv, create student objects. 
 end 
 
 ```
 
-There's a going on here so let's walk through it. First, `self` in this case is referring to the entire `Student` class. When we use it to define a method, it tells our `Student` class that this is a class method. Class methods are called on the class itself, as opposed to the instance methods we are used to, which are called on instances of a class. 
+Write a method, `all` that returns an array of student objects that represent each row in the `students.csv` file. 
 
 ```Ruby
 #an instance of Student
@@ -165,14 +163,6 @@ moe.name # => 'Moe'
 #calling a class method
 Student.all # => [#<Student:0x00007fe6708cecf0 @name="Lisa", @age="25", @password="xx ", @role="Student", @school_id="13345">, ... ]
 ```
-
-Inside our class method we are iterating over each line in the `csv` file. We set some parameters to ensure that each row includes headers which get set as our keys when we call `.to_h` to convert the row into a hash as we pass it to the `Student.new` method. 
-
-Wow, that was a mouthful. If you didn't get all that right away that's ok. It may take some time to break down all of the code. Feel free to experiment with reading from the `CSV`. Print stuff out. Break things! Do whatever you need to do to aid your learning. 
-
- Make sure you understand how the data is coming in. Why do we need to chain `.map` onto our `foreach` method? Don't move on until you have an understanding of what's going on here. This concept of reading rows of data and turning them into `Ruby` objects is extremely common and will carry through into our work with `Rails` and beyond. 
-
-Once you have a feel for what is going on here, set up the `Staff` class with its own `.all` method that reads from the `staff.csv` file.
 
 ## Release 3: Loading Staff and Students into School
 Again we are making a design decision here that might need to change as we expand functionality. For now, we want each instance of `School` to load in all the `Students` and `Staff` on its own. 
