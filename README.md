@@ -21,7 +21,7 @@ This tutorial is pretty comprehensive but it is also meant to challenge you. Som
 
 ## Our files 
 
-Right now we only have two `ruby` files and a folder for our `csv` files. Thre is a new file here we may not have seen before called a 'runner' file. For our purposes, the runner file will be the file we 'run' when we want to use our school interface. 
+Right now we only have two `ruby` files and a folder for our `csv` files. There is a new file here we may not have seen before called a 'runner' file. For our purposes, the runner file will be the file we 'run' when we want to use our school interface. 
 
 ```Ruby 
     #runner.rb
