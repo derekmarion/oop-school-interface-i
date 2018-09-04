@@ -144,23 +144,10 @@ Great! One last refactor. Now we have a lot of files hanging around in our root 
 ## Release 2: Loading Data
 The next thing we need to do is load in our data from the `csv` file using Ruby's `CSV` module. If you haven't done so already, [Read this great article on CSV and Ruby](https://www.sitepoint.com/guide-ruby-csv-library-part/). 
 We're going to make a design choice here and say that our `Student` class will be in charge of talking to our student 'database'. To do so, we'll define a [class method](http://www.rubyfleebie.com/2007/04/09/understanding-class-methods-in-ruby). 
-```Ruby
-# student.rb
-def self.all   
-   # read from the csv, create student objects. 
-end 
-
-```
 
 Write a method, `all` that returns an array of student objects that represent each row in the `students.csv` file. 
 
 ```Ruby
-#an instance of Student
-moe = Student.new('Moe')
-#calling an instance method
-moe.name # => 'Moe'
-
-#calling a class method
 Student.all # => [#<Student:0x00007fe6708cecf0 @name="Lisa", @age="25", @password="xx ", @role="Student", @school_id="13345">, ... ]
 ```
 
