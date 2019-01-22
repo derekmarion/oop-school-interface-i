@@ -165,8 +165,8 @@ Luckily, we did most of the work in the last release.
 
 def __init__(self, name):
     self.name = name   
-    self.students = Students.objects() 
-    self.staff = Staff.objects()
+    self.students = Students.all_students() 
+    self.staff = Staff.all_staff()
 ```
 That's it! As long as we remembered to import our staff and student classes, we'll be all set. Now we should be able to run our runner file and have a school full of staff and students. This will be the foundation we build the rest of our program around. 
 
