@@ -73,7 +73,7 @@ class Staff:
 
 Uh oh. That's a LOT of repeated code. There's got to be a way to refactor this. Looks like right now students and staff only differ when it comes to how their ids are stored and labeled. As our program develops, we may discover other differences, so it's a good idea to keep these separate classes, but we do want to keep our code as DRY as possible. 
 
-Let's create a `Person` class and move any shared attributes there. Then, set up your `Staff` and` School` classes so that they inherit from `Person`. 
+Let's create a `Person` class and move any shared attributes there. Then, set up your `Staff` and` School` classes so that they inherit from `Person`. [Read about how inheritance works here.](https://www.python-course.eu/python3_inheritance.php)
 
 
 ## Release 1: Refactor with dict and **kwargs
