@@ -3,6 +3,3 @@ class School:
         self.name = name
         self.staff = []
         self.students = []
-    
-
-
