@@ -53,7 +53,7 @@ Now we can create our student and staff classes. Using the headers in the corres
 ```Python 
 # student.py
 class Student:
-    def __init__(self, name, age, password, role, school_id):
+    def __init__(self, name, age, role, student_id, password):
         self.name = name 
         self.age = age         
         self.password = password
@@ -63,7 +63,7 @@ class Student:
 ```python
 #staff.py
 class Staff:
-    def __init__(self, name, age, password, role, staff_id):
+    def __init__(self, name, age, role, staff_id, password):
         self.name = name 
         self.age = age         
         self.password = password
