@@ -1,4 +1,4 @@
-name,age,role,school_id,password
+name,age,role,student_id,password
 Lisa,25,Student,13345,xx 
 Jessie,25,Student,12335,xx
 Slater,25,Student,12645,xx
