@@ -106,20 +106,20 @@ When we prepend the `**` to an argument it acts sort of like a spread operator i
 Student('Diana', 17, 'password', 'Student', 12345)
 
 # using keyword arguments lets us not have to worry about order. 
-Student(student_id=12345, age=17, password='password', role='Student',  name='Diana')
+Student(school_id=12345, age=17, password='password', role='Student',  name='Diana')
 
 ```
 
 The keyword argument example above is essentially what happens when we pass a dictionary to our School object. 
 
 ```Python 
-student_info = {'name' : 'Diana', 'password' : 'password', 'student_id' : 12345, 'age' : 17, 'role' : 'Student'}
+student_info = {'name' : 'Diana', 'password' : 'password', 'school_id' : 12345, 'age' : 17, 'role' : 'Student'}
 Student(**student_info)
 
 # the ** before student_info turns this: 
-    # {'name' : 'Diana', 'password' : 'password', 'student_id' : 12345, 'age' : 17, 'role' : 'Student'}
+    # {'name' : 'Diana', 'password' : 'password', 'school_id' : 12345, 'age' : 17, 'role' : 'Student'}
 # Into this:
-    #  name='Diana', password='password', student_id=12345, age=17, role='Student'
+    #  name='Diana', password='password', school_id=12345, age=17, role='Student'
 
 ```
 #### Move Classes Into Class Folder
