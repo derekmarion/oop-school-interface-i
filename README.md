@@ -53,7 +53,7 @@ Now we can create our student and staff classes. Using the headers in the corres
 ```Python 
 # student.py
 class Student:
-    def __init__(self, name, age, role, student_id, password):
+    def __init__(self, name, age, role, school_id, password):
         self.name = name 
         self.age = age         
         self.password = password
@@ -63,12 +63,12 @@ class Student:
 ```python
 #staff.py
 class Staff:
-    def __init__(self, name, age, role, staff_id, password):
+    def __init__(self, name, age, role, employee_id, password):
         self.name = name 
         self.age = age         
         self.password = password
         self.role = role
-        self.staff_id = staff_id
+        self.employee_id = employee_id
 ```
 
 Uh oh. That's a LOT of repeated code. There's got to be a way to refactor this. Looks like right now students and staff only differ when it comes to how their ids are stored and labeled. As our program develops, we may discover other differences, so it's a good idea to keep these separate classes, but we do want to keep our code as DRY as possible. 
@@ -81,14 +81,18 @@ Let's create a `Person` class and move any shared attributes there. Then, set up
 The code in our classes is much cleaner now. Let's do one more refactor before we move on. Right now, when we initialize an instance of `Staff` or `Student` we have to pass in five arguments.
 
 ```Python
-Student('Diana', 17, 'password', 'Student', 12345)
+Student('Diana', 17, 'password', 'Student', 12345) # Arguments input in the correct order
 ```
-This is ok for now, but as we build out our program we might want to start adding even more attributes. Also, the way our code is now, we need to be careful about the order we pass our args in. If we pass name in last in the example above, then the student_id would get set to `'Diana'`. Not good. 
+This is ok for now, but as we build out our program we might want to start adding even more attributes. Also, the way our code is now, we need to be careful about the order we pass our args in. If we pass name in last in the example above, then the school_id would get set to `'Diana'`. Not good. 
+
+```Python
+Student(17, 'password', 'Student', 12345, 'Diana') # Arguments input in the incorrect order
+```
 
 What would be better is if we could just pass a dictionary of attributes and have our class work out what goes where. Turns out Python has a built in way for us to do just that. 
 
 ```python 
-student_info = {'name' : 'Diana', 'password' : 'password', 'student_id' : 12345, 'age' : 17, 'role' : 'Student'}
+student_info = {'name' : 'Diana', 'password' : 'password', 'school_' : 12345, 'age' : 17, 'role' : 'Student'}
 Student(**student_info)
 ```
 
