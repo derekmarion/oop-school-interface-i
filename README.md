@@ -152,6 +152,7 @@ Student.all_students() # => [<__main__.Student object at 0x10c4fa908>, <__main__
 You'll need to import `os.path` and use `os.path.abspath` as well as `os.path.join` to read from the `csv` file. 
 
 ```Python
+import os
 my_path = os.path.abspath(os.path.dirname(__file__))
 path = os.path.join(my_path, "../data/students.csv")
     
