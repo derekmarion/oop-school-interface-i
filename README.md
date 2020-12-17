@@ -92,7 +92,7 @@ Student(17, 'password', 'Student', 12345, 'Diana') # Arguments input in the inco
 What would be better is if we could just pass a dictionary of attributes and have our class work out what goes where. Turns out Python has a built in way for us to do just that. 
 
 ```python 
-student_info = {'name' : 'Diana', 'password' : 'password', 'school_' : 12345, 'age' : 17, 'role' : 'Student'}
+student_info = {'name' : 'Diana', 'password' : 'password', 'school_id' : 12345, 'age' : 17, 'role' : 'Student'}
 Student(**student_info)
 ```
 
