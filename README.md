@@ -1,4 +1,4 @@
-# School Interface One
+# School Interface I
 
 ## What We're Building
 ```
