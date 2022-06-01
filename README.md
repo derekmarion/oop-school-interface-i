@@ -146,17 +146,6 @@ Write a method, `all_students()` that returns an array of student objects that r
 ```Python
 Student.all_students() # => [<__main__.Student object at 0x10c4fa908>, <__main__.Student object at 0x10c4faa58>, <__main__.Student object at 0x10c4faba8>, <__main__.Student object at 0x10c4facf8>, <__main__.Student object at 0x10c4fae48>, <__main__.Student object at 0x10c4faf98>]
 ```
-#### Hint 
-You'll need to import `os.path` and use `os.path.abspath` as well as `os.path.join` to read from the `csv` file. 
-
-```Python
-import os
-my_path = os.path.abspath(os.path.dirname(__file__))
-path = os.path.join(my_path, "../data/students.csv")
-    
-with open(path) as csvfile:
-
-```
 
 ## Release 3: Loading Staff and Students into School
 Again we are making a design decision here that might need to change as we expand functionality. For now, we want each instance of `School` to load in all the `Students` and `Staff` on its own. 
