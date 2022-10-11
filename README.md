@@ -34,7 +34,7 @@ print(school.name)
 Notice the import statement at the top. In order to keep our code organized, we separate our classes and modules into their own files. We can bring code from one file into another file by using `from <file_name> import <class_name>`. Run `python runner.py` in the command line. You'll get an error because we haven't finished writing our school class yet. Let's do that now. 
 
 
-## Release 0: Create Classes
+## Step 1: Create Classes
 
 ```Python
 # school.py
@@ -74,7 +74,7 @@ class Staff:
 There's a lot of repeated code between our `Student` and `Staff` classes. Let's create a `Person` class and move any shared attributes there. Then, set up your `Staff` and `Student` classes so that they inherit from `Person`.
 
 
-## Release 1: Refactor with dict and **kwargs
+## Step 2: Refactor with dict and **kwargs
 
 The code in our classes is much cleaner now. Let's do one more refactor before we move on. Right now, when we initialize an instance of `Staff` or `Student` we have to pass in five arguments.
 
@@ -137,7 +137,7 @@ Great! One last refactor. Now we have a lot of files hanging around in our root 
 └── runner.py 
 ```
 
-## Release 2: Loading Data
+## Step 3: Loading Data
 The next thing we need to do is load in our data from the `CSV` file using Python's `CSV` module. If you haven't done so already, [Read over the Python CSV docs](https://docs.python.org/3/library/csv.html). 
 We're going to make a design choice here and say that our `Student` class will be in charge of talking to our student 'database'. To do so, we'll define a [class method](https://realpython.com/instance-class-and-static-methods-demystified/#static-methods). 
 
@@ -147,7 +147,7 @@ Write a method, `all_students()` that returns an array of student objects that r
 Student.all_students() # => [<__main__.Student object at 0x10c4fa908>, <__main__.Student object at 0x10c4faa58>, <__main__.Student object at 0x10c4faba8>, <__main__.Student object at 0x10c4facf8>, <__main__.Student object at 0x10c4fae48>, <__main__.Student object at 0x10c4faf98>]
 ```
 
-## Release 3: Loading Staff and Students into School
+## Step 4: Loading Staff and Students into School
 Again we are making a design decision here that might need to change as we expand functionality. For now, we want each instance of `School` to load in all the `Students` and `Staff` on its own. 
 
 Luckily, we did most of the work in the last release. 
