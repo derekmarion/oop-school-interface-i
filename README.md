@@ -1,6 +1,7 @@
-# School Interface I
+# School Interface I 
+Assignment 1 of 3
 
-## What We're Building
+## What we're building by the end of this series
 ```
 Ridgemont High Student Interface 
 --------------------------------
