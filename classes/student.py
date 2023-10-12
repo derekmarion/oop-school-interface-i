@@ -14,6 +14,8 @@ class Student(Person):
             for row in csv_reader:
                 new_student = Student(name=row['name'], age=row['age'], role=row['role'], password=row['password'], school_id=row['school_id'])
                 cls.students.append(new_student)
-                
+        return cls.students
+
+    @classmethod
     def all_students(cls):
         return cls.students
